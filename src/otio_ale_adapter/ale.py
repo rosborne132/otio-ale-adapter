@@ -263,12 +263,8 @@ def read_from_string(input_str, fps=24, **adapter_argument_map):
         if line.strip() == "Heading":
             header.update(_read_heading_lines(lines))
 
-        try:
+        if "FPS" in header:
             fps = float(header["FPS"])
-        except KeyError:
-            raise ALEParseError(
-                "FPS not found in header data: " + repr(header)
-            )
 
         if line.strip() == "Column":
             if len(lines) == 0:
